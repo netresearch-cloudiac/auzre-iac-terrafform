@@ -13,4 +13,10 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 | common-mgt | common services for management of the Azure cloud | Storage - Terraform remote state, KeyVault | Inprogress|
 | vnet-structre | vnet for the azure environment | VNETs, peerings | Not started|
 
+## Terraform Setup
 
+### Service Principal
+- Create a service pricipal for automating the Azure Infra setup
+
+### Enviroment Variable setup
+- Setup below enviroment variables to connecting to Azure using service principal
