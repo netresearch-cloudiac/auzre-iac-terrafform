@@ -20,8 +20,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-        with:
-          tf_actions_working_dir: 03-autodeploy
 
       - name: Change directory
         run: |
@@ -32,7 +30,9 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-
+        with:
+          tf_actions_working_dir: 03-autodeploy
+          
       - name: Terraform Validate
         run: terraform validate
 
