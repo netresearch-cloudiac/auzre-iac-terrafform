@@ -2,9 +2,7 @@ name: Terraform Plan
 
 on:
   push:
-    branches:
-      - develop
-      - autodeploy
+    branches: [develop, autodeploy]
 
 jobs:
   terraform:
