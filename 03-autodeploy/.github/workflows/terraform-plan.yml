@@ -1,8 +1,8 @@
 name: Terraform Plan
 
-on:
-  push:
-    branches: [develop, autodeploy]
+on: push
+#  push:
+#    branches: [develop, autodeploy]
 
 jobs:
   terraform:
