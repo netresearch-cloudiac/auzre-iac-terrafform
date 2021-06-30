@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        users: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Setup Terraform
-        run: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
         run: terraform init
