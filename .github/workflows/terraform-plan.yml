@@ -25,6 +25,8 @@ jobs:
         run: |
             pwd
             cd 03-autodeploy
+            pwd
+            git branch
 
       - name: Terraform Init
         run: terraform init
