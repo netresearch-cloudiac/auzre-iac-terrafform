@@ -22,7 +22,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Change directory
-        run: cd 03-autodeploy
+        run: |
+            pwd
+            cd 03-autodeploy
 
       - name: Terraform Init
         run: terraform init
