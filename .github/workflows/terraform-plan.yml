@@ -1,8 +1,8 @@
 name: Terraform Plan
 
-on: push
-#  push:
-#    branches: [develop, autodeploy]
+on:
+  push:
+    branches: [develop, autodeploy]
 
 jobs:
   terraform:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Change directory
         run: cd 03-autodeploy
-        
+
       - name: Terraform Init
         run: terraform init
 
