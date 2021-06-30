@@ -4,7 +4,7 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 ## Repository branch structure
 - main    --> production branch (protected)
 - develop --> development branch where developer branches are merged for staging and testing
-- <user branch> --> developers will create their own branch to develop/patch and raise a pull request to merge to develop branch
+- [user branch] --> developers will create their own branch to develop/patch and raise a pull request to merge to develop branch
 
 ## Templates
 
