@@ -1,0 +1,35 @@
+name: Terraform Plan
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+
+    steps:
+      - name: Checkout Code
+        users: actions/checkout@v2
+
+      - name: Setup Terraform
+        run: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terrafrom Plan
+        run: terraform plan
+
+      
+
