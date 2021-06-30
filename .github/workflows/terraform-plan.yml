@@ -14,6 +14,10 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
       ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
 
+defaults:
+  run:
+    working-directory: '03-autodeploy'
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -30,9 +34,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        with:
-          tf_actions_working_dir: 03-autodeploy
-          
+
       - name: Terraform Validate
         run: terraform validate
 
