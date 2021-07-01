@@ -27,3 +27,4 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 - Terraform Github actions offical repo - https://github.com/hashicorp/setup-terraform
 - Terraform GitHub Actions Examples - https://github.com/xsalazar/terraform-github-actions-example
 - How to use enviroment secrets in action - [Popular GitHub Repos by Language](https://github.com/pied-piper-inc/build-2021)
+- Deploying to Azure using Terraform and Github Actions - https://www.blendmastersoftware.com/blog/deploying-to-azure-using-terraform-and-github-actions
