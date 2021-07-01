@@ -17,6 +17,7 @@ jobs:
       ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
       TF_ACTION_WORKING_DIR: '03-autodeploy'
 
+
     steps:
       - name: "Checkout Code"
         uses: actions/checkout@v2
