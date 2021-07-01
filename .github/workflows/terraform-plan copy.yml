@@ -9,7 +9,7 @@ jobs:
     name: "Terraform Init"
     runs-on: ubuntu-latest
    
-    env:
+    env: dev
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
       ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
