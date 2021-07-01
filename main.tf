@@ -16,5 +16,5 @@ provider "azurerm" {
 resource "azurerm_resource_group" "autorg" {
   name     = var.rg_name
   location = var.pry_location
-  tags = var.tags
+  tags     = var.tags
 }
