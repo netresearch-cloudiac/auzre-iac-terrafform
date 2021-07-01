@@ -28,3 +28,10 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 - Terraform GitHub Actions Examples - https://github.com/xsalazar/terraform-github-actions-example
 - How to use enviroment secrets in action - [Popular GitHub Repos by Language](https://github.com/pied-piper-inc/build-2021)
 - Deploying to Azure using Terraform and Github Actions - https://www.blendmastersoftware.com/blog/deploying-to-azure-using-terraform-and-github-actions
+- sharing variable between jobs - https://github.community/t/sharing-a-variable-between-jobs/16967/9
+
+## Cloud Operating Model
+- How can organizations adopt the cloud operating model? - https://www.hashicorp.com/resources/what-is-cloud-operating-model-adoption
+- Unlocking the Cloud Operating Model: People, Process, Tools - https://www.hashicorp.com/resources/unlocking-cloud-operating-model-people-process-tools
+- AWS Events - Cloud Operating Models for Accelerated Transformation - Level 200 - https://www.youtube.com/watch?v=ksJ5_UdYIag
+- AWS re:Invent 2020: Transform your organization’s culture with a Cloud Center of Excellence - https://www.youtube.com/watch?v=VN1vj0d3Z1Y
