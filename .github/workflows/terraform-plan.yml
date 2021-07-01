@@ -70,6 +70,10 @@ jobs:
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
 
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
       - name: Terrafrom Apply
         id: apply
         run: terraform apply -auto-approve
