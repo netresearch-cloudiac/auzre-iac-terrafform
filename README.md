@@ -20,3 +20,10 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 
 ### Enviroment Variable setup
 - Setup below enviroment variables to connecting to Azure using service principal
+
+
+# References
+## Github actions
+- Terraform Github actions offical repo - https://github.com/hashicorp/setup-terraform
+- Terraform GitHub Actions Examples - https://github.com/xsalazar/terraform-github-actions-example
+- How to use enviroment secrets in action - [Popular GitHub Repos by Language](https://github.com/pied-piper-inc/build-2021)

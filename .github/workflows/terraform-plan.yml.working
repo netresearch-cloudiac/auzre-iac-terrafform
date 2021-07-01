@@ -2,23 +2,26 @@ name: Terraform Plan
 
 on:
   push:
-    branches: [develop, autodeploy]
+    branches: [autodeploy]
 
 jobs:
   terraform:
+    name: "Terraform Init"
     runs-on: ubuntu-latest
-
-    
+    environment:
+      name: dev
+   
     env:
-      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
       ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
       ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
       ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
       TF_ACTION_WORKING_DIR: '03-autodeploy'
 
+
     steps:
-      - name: Checkout Code
+      - name: "Checkout Code"
         uses: actions/checkout@v2
 
       - name: Change directory
@@ -29,7 +32,7 @@ jobs:
             git branch
             echo $ARM_TENANT_ID
 
-      - name: Setup Terraform
+      - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
