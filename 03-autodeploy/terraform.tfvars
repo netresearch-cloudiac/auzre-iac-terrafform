@@ -1,4 +1,4 @@
-rg_name = "RG-autodeploy-test"
+rg_name = "RG-autodeploy-test-indir"
 pry_location = "East US"
 tags = {
     Author = "Dheep Balaraman"
