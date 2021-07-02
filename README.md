@@ -29,6 +29,16 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 - How to use enviroment secrets in action - [Popular GitHub Repos by Language](https://github.com/pied-piper-inc/build-2021)
 - Deploying to Azure using Terraform and Github Actions - https://www.blendmastersoftware.com/blog/deploying-to-azure-using-terraform-and-github-actions
 - sharing variable between jobs - https://github.community/t/sharing-a-variable-between-jobs/16967/9
+- Github Actions | Terraform | Github CI CD 
+    - https://www.youtube.com/watch?v=JpnEjwTcczc
+    - https://www.youtube.com/watch?v=36hY0-O4STg&t=1s
+- Environment Scoped Secrets for GitHub Action Workflows 
+    - https://dev.to/github/environment-scoped-secrets-for-github-action-workflows-337a
+    - https://www.youtube.com/watch?v=tkKpGWMCG4Q
+        - Github code for above video - https://github.com/pied-piper-inc/build-2021
+
+## Enterprise CI/CD
+- Enterprise CI/CD Best Practices (3part series) - https://dev.to/kostiscodefresh/series/13231
 
 ## Cloud Operating Model
 - How can organizations adopt the cloud operating model? - https://www.hashicorp.com/resources/what-is-cloud-operating-model-adoption
