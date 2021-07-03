@@ -80,7 +80,8 @@ jobs:
 
 on:
   workflow_dispatch
-  
+
+jobs:
   tfdestroy:
     name: "Terraform Destroy"
     runs-on: ubuntu-latest
