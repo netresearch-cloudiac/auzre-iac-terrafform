@@ -1,8 +1,5 @@
 name: Manually triggered workflow
 on:
-  push:
-    branches: [autodeploy]
-  
   workflow_dispatch:
   
 jobs:
