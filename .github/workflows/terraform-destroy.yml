@@ -9,7 +9,7 @@ jobs:
  tfdestroy:
     name: "Terraform Destroy"
     runs-on: ubuntu-latest
-    needs: tfapply   # sets dependcy on the the tfapply
+    #needs: tfapply   # sets dependcy on the the tfapply
     defaults:
       run:
         working-directory: 03-autodeploy
