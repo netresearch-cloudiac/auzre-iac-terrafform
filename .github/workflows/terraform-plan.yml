@@ -77,3 +77,37 @@ jobs:
       - name: Terrafrom Apply
         id: apply
         run: terraform apply -auto-approve
+
+  workflow_dispatch:
+  tfdestroy:
+    name: "Terraform Destroy"
+    runs-on: ubuntu-latest
+    needs: tfapply   # sets dependcy on the the tfapply
+    defaults:
+      run:
+        working-directory: 03-autodeploy
+    environment:
+      name: dev
+    env:
+      #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+      TF_ACTION_WORKING_DIR: '03-autodeploy'
+
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
+
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terrafrom Destroy
+        id: destroy
+        run: terraform destroy -auto-approve
