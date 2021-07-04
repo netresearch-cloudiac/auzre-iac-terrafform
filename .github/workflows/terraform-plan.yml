@@ -1,0 +1,79 @@
+name: Terraform Plan
+
+on:
+  push:
+    branches: [autodeploy]
+
+jobs:
+  tfplan:
+    name: "Terraform Plan"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 03-autodeploy
+    environment:
+      name: dev
+    env:
+      #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+      TF_ACTION_WORKING_DIR: '03-autodeploy'
+
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
+
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check -diff
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+
+      - name: Terrafrom Plan
+        id: plan
+        run: terraform plan
+
+  tfapply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    needs: tfplan   # sets dependcy on the the tfplan
+    defaults:
+      run:
+        working-directory: 03-autodeploy
+    environment:
+      name: dev
+    env:
+      #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+      TF_ACTION_WORKING_DIR: '03-autodeploy'
+
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
+
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terrafrom Apply
+        id: apply
+        run: terraform apply -auto-approve
