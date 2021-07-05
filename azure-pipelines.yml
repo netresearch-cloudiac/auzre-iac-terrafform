@@ -1,6 +1,7 @@
 name: $(Date:yyyyMMdd)$(Rev:.r)
 variables:
   var1: value1
+  terraform_templates_dir: 04-slb2srv1reg
 
 trigger:
   - push
@@ -13,7 +14,14 @@ stages:
     jobs:
     - job: terraforminstall
       steps:
-        - task: TerraformInstaller@0
+        - task: TerraformInstaller@2
           displayName: install terraform
           inputs:
             terraformVersion: 0.14.3 #latest
+
+        - task: TerraformCLI
+          displayName: 'terraform plan'
+          inputs:
+            command: plan
+            workingDirectory: $(terraform_templates_dir)
+            environmentServiceName: 'netresearch-cloudiac'
