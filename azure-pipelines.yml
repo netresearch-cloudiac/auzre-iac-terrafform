@@ -19,9 +19,9 @@ stages:
           inputs:
             terraformVersion: 0.14.3 #latest
 
-        - task: TerraformCLI
-          displayName: 'terraform plan'
+        - task: TerraformTaskV1@0
+          displayName: 'init'
           inputs:
-            command: plan
+            command: init
             workingDirectory: $(terraform_templates_dir)
             environmentServiceName: 'netresearch-cloudiac'
