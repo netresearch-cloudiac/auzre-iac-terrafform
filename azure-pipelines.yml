@@ -1,0 +1,23 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+variables:
+  var1: value1
+
+trigger:
+  - push
+  
+pool:
+  vmImage: ubuntu-latest
+  
+stages:
+  - stage: install
+    jobs:
+    - job: terraforminstall
+      steps:
+        - task: TerraformInstaller
+          displayName: install terraform
+          inputs:
+            terraformVersion: latest
+        - task: TerraformCLI@0
+          displayName: 'check terraform version'
+          inputs:
+            command: version
