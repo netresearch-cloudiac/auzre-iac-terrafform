@@ -6,6 +6,18 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 - develop --> development branch where developer branches are merged for staging and testing
 - [user branch] --> developers will create their own branch to develop/patch and raise a pull request to merge to develop branch
 
+## Development Environment setup
+- [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/azure-get-started)
+- [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [Install Git](https://git-scm.com/downloads)
+- [Install VScode](https://code.visualstudio.com/download) (and below extenstions)
+    - Bracket pair colorizer 2
+    - Azure terraform
+    - Hashicorp terraform
+    - git extension pack
+    - Terraform azure autocomplete
+    - Azure cli tools
+
 ## Templates
 
 | Name | Description | Components | Status |
@@ -20,7 +32,12 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 
 ### Enviroment Variable setup
 - Setup below enviroment variables to connecting to Azure using service principal
-
+```shell
+ARM_CLIENT_ID
+ARM_CLIENT_SECRET
+ARM_SUBSCRIPTION_ID
+ARM_TENANT_ID
+```
 
 # References
 ## Github actions

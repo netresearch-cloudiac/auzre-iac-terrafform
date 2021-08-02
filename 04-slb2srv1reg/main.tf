@@ -13,7 +13,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "autorg" {
+resource "azurerm_resource_group" "slb2srv" {
   name     = var.rg_name
   location = var.pry_location
   tags     = var.tags
