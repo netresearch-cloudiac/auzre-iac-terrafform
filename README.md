@@ -65,5 +65,16 @@ ARM_TENANT_ID
 - AWS re:Invent 2020: Transform your organization’s culture with a Cloud Center of Excellence - https://www.youtube.com/watch?v=VN1vj0d3Z1Y
 
 ## Terraform template links
+- Terraform on Azure documentation - https://docs.microsoft.com/en-us/azure/developer/terraform/
+- Azure Terrafrom configuration templates - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples
 - Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
+
+## Azure Networking VNET links
+- How network security groups filter network traffic - https://docs.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
+### Public IP address
+- Public IP addresses Basic vs Standard - https://docs.microsoft.com/en-us/azure/virtual-network/public-ip-addresses
+- IP Addresses pricing - https://azure.microsoft.com/en-au/pricing/details/ip-addresses/
+
+## Load Balancer
+- Loadbalancer-2VM - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/virtual-machines/virtual_machine/2-vms-loadbalancer-lbrules

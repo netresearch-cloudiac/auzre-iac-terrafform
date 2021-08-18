@@ -1,39 +1,27 @@
-
-/*variable "prefix" {
-  default = "tfvmex"
-}
-
-resource "azurerm_resource_group" "slb2srv" {
-  name     = "${var.prefix}-resources"
-  location = "West Europe"
-}
-
-resource "azurerm_virtual_network" "slb2srv" {
-  name                = "${var.prefix}-network"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.slb2srv.location
+# Virtual Machine definition
+resource "azurerm_public_ip" "slb2srv" {
+  count               = var.vm_count
+  name                = "${var.prefix}-pubip${count.index}"
   resource_group_name = azurerm_resource_group.slb2srv.name
+  location            = azurerm_resource_group.slb2srv.location
+  allocation_method   = "Static"
+  domain_name_label   = "${var.prefix}-vm${count.index}"
+  sku                 = "Standard"
+  tags                = var.tags
 }
-
-resource "azurerm_subnet" "internal" {
-  name                 = "internal"
-  resource_group_name  = azurerm_resource_group.slb2srv.name
-  virtual_network_name = azurerm_virtual_network.slb2srv.name
-  address_prefixes     = ["10.0.2.0/24"]
-}
-*/
 
 resource "azurerm_network_interface" "slb2srv" {
   count               = var.vm_count
-  name                = "${var.prefix}-nic${count.index}"
+  name                = "${var.prefix}-nic${count.index}-in"
   location            = azurerm_resource_group.slb2srv.location
   resource_group_name = azurerm_resource_group.slb2srv.name
 
   ip_configuration {
-    name = "testconfiguration1"
+    name = "pvtip${count.index}"
     //subnet_id                     = azurerm_virtual_network.slb2srv.subnet.id //azurerm_subnet.internal.id
     subnet_id                     = azurerm_virtual_network.slb2srv.subnet.*.id[0]
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = element(azurerm_public_ip.slb2srv.*.id, count.index)
   }
 }
 
@@ -89,7 +77,7 @@ resource "azurerm_virtual_machine" "slb2srv" {
 }
 
 resource "azurerm_virtual_machine_extension" "slb2srv" {
-  count = var.vm_count
+  count                = var.vm_count
   name                 = "iis-extension"
   virtual_machine_id   = azurerm_virtual_machine.slb2srv[count.index].id
   publisher            = "Microsoft.Compute"
