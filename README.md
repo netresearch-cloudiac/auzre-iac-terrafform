@@ -24,6 +24,7 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 |----|----|----|----|
 | common-mgt | common services for management of the Azure cloud | Storage - Terraform remote state, KeyVault | Inprogress|
 | vnet-structre | vnet for the azure environment | VNETs, peerings | Not started|
+|[Tier4app](/04-slb2srv1reg) | One Loadbalancer with two web servers | one azure standard load balancer with two windows servers | In Progress|
 
 ## Terraform Setup
 
@@ -62,3 +63,7 @@ ARM_TENANT_ID
 - Unlocking the Cloud Operating Model: People, Process, Tools - https://www.hashicorp.com/resources/unlocking-cloud-operating-model-people-process-tools
 - AWS Events - Cloud Operating Models for Accelerated Transformation - Level 200 - https://www.youtube.com/watch?v=ksJ5_UdYIag
 - AWS re:Invent 2020: Transform your organization’s culture with a Cloud Center of Excellence - https://www.youtube.com/watch?v=VN1vj0d3Z1Y
+
+## Terraform template links
+- Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
+- example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf

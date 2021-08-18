@@ -6,12 +6,12 @@ resource "azurerm_virtual_network" "slb2srv" {
   #dns_servers         = ["10.0.0.4", "10.0.0.5"]
 
   subnet {
-    name           = "subnet1"
+    name           = var.vnet_subnet01_name
     address_prefix = var.vnet_subnet01
   }
 
   subnet {
-    name           = "subnet2"
+    name           = var.vnet_subnet02_name
     address_prefix = var.vnet_subnet02
   }
 
