@@ -18,10 +18,14 @@ stages:
           displayName: install terraform
           inputs:
             terraformVersion: 0.14.3 #latest
-
-        - task: TerraformTaskV1@0
-          displayName: 'init'
+        - task: TerraformTaskV2@2
           inputs:
+            provider: 'azurerm'
             command: 'init'
             workingDirectory: $(terraform_templates_dir)
-            environmentServiceName: 'netresearch-cloudiac'
+            backendServiceArm: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
+            backendAzureRmResourceGroupName: 'RG-common-base'
+            backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
+            backendAzureRmContainerName: 'tfstatecontainer'
+            backendAzureRmKey: 'backendsetup.terraform.tfstate'
+            
