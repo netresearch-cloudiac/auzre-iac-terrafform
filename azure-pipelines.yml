@@ -32,12 +32,12 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'validate'
-            workingDirectory: '$(terraform_templates_dir)'
+            workingDirectory: '$(terraform_templates_dir)' 
   - stage: plan
     jobs:
     - job: planning
       steps:
-         - task: TerraformTaskV2@2
+        - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
             command: 'plan'
