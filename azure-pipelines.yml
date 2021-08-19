@@ -28,4 +28,18 @@ stages:
             backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
             backendAzureRmContainerName: 'tfstatecontainer'
             backendAzureRmKey: 'backendsetup.terraform.tfstate'
-            
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'validate'
+            workingDirectory: '$(terraform_templates_dir)'
+  - stage: plan
+    jobs:
+    - job: planning
+      steps:
+         - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            commandOptions: '-out=tfplan'
+            environmentServiceNameAzureRM: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
