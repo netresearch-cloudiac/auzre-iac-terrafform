@@ -42,4 +42,5 @@ stages:
             provider: 'azurerm'
             command: 'plan'
             commandOptions: '-out=tfplan'
+            workingDirectory: '$(terraform_templates_dir)'
             environmentServiceNameAzureRM: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
