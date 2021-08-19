@@ -14,10 +14,10 @@ stages:
     jobs:
     - job: terraforminstall
       steps:
-        - task: TerraformInstaller@0
-          displayName: install terraform
-          inputs:
-            terraformVersion: 'latest'
+        # - task: TerraformInstaller@0
+        #   displayName: install terraform
+        #   inputs:
+        #     terraformVersion: 'latest'
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
