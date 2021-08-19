@@ -10,9 +10,9 @@ pool:
   vmImage: ubuntu-latest
   
 stages:
-  - stage: install
+  - stage: validate
     jobs:
-    - job: terraforminstall
+    - job: terraform_init
       steps:
         # - task: TerraformInstaller@0
         #   displayName: install terraform
@@ -28,6 +28,8 @@ stages:
             backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
             backendAzureRmContainerName: 'tfstatecontainer'
             backendAzureRmKey: 'backendsetup.terraform.tfstate'
+    - job: terraform_validate
+      steps:
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
@@ -35,6 +37,22 @@ stages:
             workingDirectory: '$(terraform_templates_dir)' 
   - stage: plan
     jobs:
+    - job: terraform_init
+      steps:
+        # - task: TerraformInstaller@0
+        #   displayName: install terraform
+        #   inputs:
+        #     terraformVersion: 'latest'
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: $(terraform_templates_dir)
+            backendServiceArm: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
+            backendAzureRmResourceGroupName: 'RG-common-base'
+            backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
+            backendAzureRmContainerName: 'tfstatecontainer'
+            backendAzureRmKey: 'backendsetup.terraform.tfstate'
     - job: planning
       steps:
         - task: TerraformTaskV2@2
