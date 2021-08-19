@@ -14,7 +14,7 @@ stages:
     jobs:
     - job: terraforminstall
       steps:
-        - task: TerraformInstaller@2
+        - task: TerraformInstaller@0
           displayName: install terraform
           inputs:
             terraformVersion: 0.14.3 #latest
