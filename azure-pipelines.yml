@@ -1,19 +1,64 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+name: $(Date:yyyyMMdd)$(Rev:.r)
+variables:
+  var1: value1
+  terraform_templates_dir: 04-slb2srv1reg
 
 trigger:
-- develop
-
+  - push
+  
 pool:
   vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  
+stages:
+  - stage: validate
+    jobs:
+    - job: terraform_init
+      steps:
+        # - task: TerraformInstaller@0
+        #   displayName: install terraform
+        #   inputs:
+        #     terraformVersion: 'latest'
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: $(terraform_templates_dir)
+            backendServiceArm: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
+            backendAzureRmResourceGroupName: 'RG-common-base'
+            backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
+            backendAzureRmContainerName: 'tfstatecontainer'
+            backendAzureRmKey: 'backendsetup.terraform.tfstate'
+    - job: terraform_validate
+      steps:
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'validate'
+            workingDirectory: '$(terraform_templates_dir)' 
+  - stage: plan
+    jobs:
+    - job: terraform_init
+      steps:
+        # - task: TerraformInstaller@0
+        #   displayName: install terraform
+        #   inputs:
+        #     terraformVersion: 'latest'
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: $(terraform_templates_dir)
+            backendServiceArm: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
+            backendAzureRmResourceGroupName: 'RG-common-base'
+            backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
+            backendAzureRmContainerName: 'tfstatecontainer'
+            backendAzureRmKey: 'backendsetup.terraform.tfstate'
+    - job: planning
+      steps:
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            commandOptions: '-out=tfplan'
+            workingDirectory: '$(terraform_templates_dir)'
+            environmentServiceNameAzureRM: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
