@@ -64,7 +64,7 @@ stages:
             workingDirectory: '$(terraform_templates_dir)'
             environmentServiceNameAzureRM: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
 
-  - stage: deploy manual approval
+  - stage: deploy
     jobs:
     - job: terraform_apply
       timeoutInMinutes: 1440 # task times out in 1 day
