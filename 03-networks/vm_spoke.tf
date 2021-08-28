@@ -4,7 +4,7 @@ resource "azurerm_public_ip" "spoke" {
   resource_group_name = azurerm_resource_group.spoke["1"].name
   location            = azurerm_resource_group.spoke["1"].location
   allocation_method   = "Static"
-  domain_name_label   = "${var.prefix}-vmspoke01"
+  domain_name_label   = "${var.prefix}-vmsp1"
   sku                 = "Standard"
   tags                = var.tags
 }
@@ -52,13 +52,13 @@ resource "azurerm_virtual_machine" "spoke" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "${var.prefix}-myosdiskvmspoke01"
+    name              = "${var.prefix}-myosdiskvmsp1"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-vmspoke01"
+    computer_name  = "${var.prefix}-vmsp1"
     admin_username = var.vm_username
     admin_password = var.vm_password
   }
