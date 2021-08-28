@@ -40,10 +40,6 @@ stages:
     jobs:
     - job: terraform_init
       steps:
-        # - task: TerraformInstaller@0
-        #   displayName: install terraform
-        #   inputs:
-        #     terraformVersion: 'latest'
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
@@ -54,8 +50,6 @@ stages:
             backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
             backendAzureRmContainerName: 'tfstatecontainer'
             backendAzureRmKey: 'backendsetup.terraform.tfstate'
-    #- job: planning
-    #  steps:
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
@@ -69,15 +63,15 @@ stages:
       - job: waitForValidation
         displayName: Wait for external validation
         pool: server
-        timeoutInMinutes: 1440 # job times out in 1 day
+        timeoutInMinutes: 30 # job times out in 1 day
         steps:
         - task: ManualValidation@0
-          timeoutInMinutes: 10 # task times out in 10 mins
+          timeoutInMinutes: 2 # task times out in 10 mins
           inputs:
             notifyUsers: |
               dheep@net-research.com.au
             instructions: 'Please validate the build configuration and resume'
-            onTimeout: 'resume'
+            onTimeout: 'reject'
 
   - stage: deploy
     jobs:
@@ -124,10 +118,10 @@ stages:
     - job: waitForValidation
       displayName: Wait for external validation
       pool: server
-      timeoutInMinutes: 1440 # job times out in 1 day
+      timeoutInMinutes: 120 # job times out in 2hours
       steps:
       - task: ManualValidation@0
-        timeoutInMinutes: 10 # task times out in 10 mins
+        timeoutInMinutes: 60 # task times out in 60 mins
         inputs:
           notifyUsers: |
             dheep@net-research.com.au
