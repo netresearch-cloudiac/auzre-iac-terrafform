@@ -1,7 +1,7 @@
 name: $(Date:yyyyMMdd)$(Rev:.r)
 variables:
   var1: value1
-  terraform_templates_dir: 04-slb2srv1reg
+  terraform_templates_dir: 03-networks
 
 trigger:
   - push
