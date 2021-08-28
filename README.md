@@ -71,6 +71,7 @@ ARM_TENANT_ID
 - Azure Terrafrom configuration templates - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples
 - Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
+- Deploying to multiple Azure subscriptions using Terraform - https://medium.com/codex/deploying-to-multiple-azure-subscriptions-using-terraform-81249a58a600
 
 ## Azure Networking VNET links
 - How network security groups filter network traffic - https://docs.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
