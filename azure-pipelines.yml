@@ -28,12 +28,12 @@ stages:
             backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
             backendAzureRmContainerName: 'tfstatecontainer'
             backendAzureRmKey: 'backendsetup.terraform.tfstate'
-    - job: terraform_validate
-      steps:
+    # - job: terraform_validate
+    #  steps:
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
-            command: 'init'
+            #command: 'init'
             command: 'validate'
             workingDirectory: '$(terraform_templates_dir)' 
   - stage: plan
@@ -54,8 +54,8 @@ stages:
             backendAzureRmStorageAccountName: 'tfcmmgtstatestore'
             backendAzureRmContainerName: 'tfstatecontainer'
             backendAzureRmKey: 'backendsetup.terraform.tfstate'
-    - job: planning
-      steps:
+    #- job: planning
+    #  steps:
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
