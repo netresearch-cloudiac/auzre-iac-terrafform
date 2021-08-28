@@ -33,6 +33,7 @@ stages:
         - task: TerraformTaskV2@2
           inputs:
             provider: 'azurerm'
+            command: 'init'
             command: 'validate'
             workingDirectory: '$(terraform_templates_dir)' 
   - stage: plan
