@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "spoke" {
 }
 
 resource "azurerm_network_security_group" "spoke" {
-  for_each = local.netsuffixset
+  for_each            = local.netsuffixset
   name                = "nsg_${each.key}"
   location            = azurerm_resource_group.spoke[each.key].location
   resource_group_name = azurerm_resource_group.spoke[each.key].name
@@ -56,7 +56,7 @@ resource "azurerm_network_security_group" "spoke" {
 }
 
 resource "azurerm_virtual_network" "spoke" {
-  for_each = local.netsuffixset
+  for_each            = local.netsuffixset
   name                = "${var.prefix}_vnet${each.key}"
   location            = azurerm_resource_group.spoke[each.key].location
   resource_group_name = azurerm_resource_group.spoke[each.key].name
@@ -74,7 +74,7 @@ resource "azurerm_virtual_network" "spoke" {
     address_prefix = "10.${each.key}.2.0/24"
   }
 
-    subnet {
+  subnet {
     name           = "mgtsub${each.key}"
     address_prefix = "10.${each.key}.3.0/24"
   }

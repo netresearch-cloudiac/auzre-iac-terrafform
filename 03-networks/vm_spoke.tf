@@ -25,8 +25,8 @@ resource "azurerm_network_interface" "spoke" {
 
 resource "azurerm_virtual_machine" "spoke" {
   name                  = "${var.prefix}vmsp"
-  resource_group_name = azurerm_resource_group.spoke["1"].name
-  location            = azurerm_resource_group.spoke["1"].location
+  resource_group_name   = azurerm_resource_group.spoke["1"].name
+  location              = azurerm_resource_group.spoke["1"].location
   network_interface_ids = [azurerm_network_interface.spoke.id] # [azurerm_network_interface.spoke.id]
   vm_size               = "Standard_DS1_v2"
 

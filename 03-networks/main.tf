@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
-  features {}  
+  features {}
   alias           = "onpremsim"
   subscription_id = "6cf6df30-ea4d-4e5a-9271-f8514eafe15f"
 }

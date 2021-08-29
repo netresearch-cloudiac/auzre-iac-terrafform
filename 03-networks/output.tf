@@ -35,6 +35,12 @@ output "public_ip_address_vmspoke" {
   value       = azurerm_public_ip.spoke.*.ip_address
 }
 
+output "public_ip_address_ciscocsr" {
+  # provider    = azurerm.onpremsim
+  description = "The actual ip address allocated for onprem Cisco CSR"
+  value       = azurerm_public_ip.cisco.*.ip_address
+}
+
 # output "public_ip_fqdns" {
 #   description = "The actual dns names allocated for the resource."
 #   value       = azurerm_public_ip.slb2srv.*.fqdn

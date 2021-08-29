@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "core" {
 
 resource "azurerm_network_security_group" "coredmz" {
   # for_each = local.netsuffixset
-  provider = azurerm.onpremsim
+  provider            = azurerm.onpremsim
   name                = "nsg_coredmz"
   location            = azurerm_resource_group.core.location
   resource_group_name = azurerm_resource_group.core.name
@@ -26,7 +26,7 @@ resource "azurerm_network_security_group" "coredmz" {
     destination_address_prefix = "VirtualNetwork"
   }
 
-   security_rule {
+  security_rule {
     name                       = "AllowSSH"
     priority                   = 130
     direction                  = "Inbound"
@@ -43,7 +43,7 @@ resource "azurerm_network_security_group" "coredmz" {
 
 resource "azurerm_virtual_network" "core" {
   # for_each = local.netsuffixset
-  provider = azurerm.onpremsim
+  provider            = azurerm.onpremsim
   name                = "${var.prefix}_vnet-core"
   location            = azurerm_resource_group.core.location
   resource_group_name = azurerm_resource_group.core.name
@@ -66,7 +66,7 @@ resource "azurerm_virtual_network" "core" {
     security_group = azurerm_network_security_group.coredmz.id
   }
 
-    subnet {
+  subnet {
     name           = "mgtsub"
     address_prefix = "172.20.3.0/24"
   }

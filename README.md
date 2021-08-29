@@ -73,6 +73,9 @@ ARM_TENANT_ID
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
 - Deploying to multiple Azure subscriptions using Terraform - https://medium.com/codex/deploying-to-multiple-azure-subscriptions-using-terraform-81249a58a600
 
+### Terrafrom special cases
+- Multi-Cloud Open DC/OS on AWS with Terraform AWS and Azure (with Cisco csr 1000v) - https://github.com/bernadinm/hybrid-cloud
+
 ## Azure Networking VNET links
 - How network security groups filter network traffic - https://docs.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
 ### Public IP address
