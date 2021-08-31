@@ -5,7 +5,7 @@ resource "azurerm_local_network_gateway" "hub" {
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
   gateway_address     = azurerm_public_ip.cisco.ip_address
-  address_space       = [azurerm_virtual_network.core.address_space]
+  address_space       = ["${azurerm_virtual_network.core.address_space}"]
   bgp_settings {
     asn = 65010
     bgp_peering_address = azurerm_network_interface.cisco_nic.private_ip_address
