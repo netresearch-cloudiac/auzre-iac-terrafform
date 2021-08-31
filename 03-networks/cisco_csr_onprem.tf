@@ -84,7 +84,7 @@ resource "azurerm_virtual_machine" "cisco" {
   primary_network_interface_id = azurerm_network_interface.cisco_nic.id
 
   plan {
-    name      = "csr-azure-byol"
+    name      = "16_12-byol"
     product   = "cisco-csr-1000v"
     publisher = "cisco"
   }
@@ -92,7 +92,7 @@ resource "azurerm_virtual_machine" "cisco" {
   storage_image_reference {
     publisher = "cisco"
     offer     = "cisco-csr-1000v"
-    sku       = "csr-azure-byol"
+    sku       = "16_12-byol"
     version   = "latest"
   }
 
