@@ -1,30 +1,15 @@
-resource "azurerm_resource_group" "example" {
-  name     = "test"
-  location = "West US"
-}
-
-resource "azurerm_virtual_network" "example" {
-  name                = "test"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  address_space       = ["10.0.0.0/16"]
-}
-
-resource "azurerm_subnet" "example" {
-  name                 = "GatewaySubnet"
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = ["10.0.1.0/24"]
-}
-
-
+# VPN Gateway and S2S configuration to onprem Csico CSR1000
 
 resource "azurerm_local_network_gateway" "hub" {
   name                = "hublocalgw"
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
   gateway_address     = azurerm_public_ip.cisco.ip_address
-  address_space       = azurerm_virtual_network.core.address_space
+  address_space       = [azurerm_virtual_network.core.address_space]
+  bgp_settings {
+    asn = 65010
+    bgp_peering_address = azurerm_network_interface.cisco_nic.private_ip_address
+  }
 }
 
 resource "azurerm_public_ip" "vpngw" {
@@ -53,9 +38,15 @@ resource "azurerm_virtual_network_gateway" "hub" {
     subnet_id                     = azurerm_virtual_network.core.subnet.*.id[0]
   }
 
+  bgp_settings {
+    asn = 65515
+  }
+
   #   vpn_client_configuration {
   #     address_space = ["172.20.0.0/16"]
   #   }
+
+  tags = var.tags
 }
 
 resource "azurerm_virtual_network_gateway_connection" "hub" {
