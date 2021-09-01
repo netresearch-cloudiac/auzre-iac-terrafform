@@ -4,6 +4,7 @@ resource "azurerm_resource_group" "hub" {
   #for_each = local.netsuffixset
   name     = "${var.rg_name}-hub"
   location = var.pry_location
+  tags = var.tags
 }
 
 resource "azurerm_network_security_group" "hubdmz" {
