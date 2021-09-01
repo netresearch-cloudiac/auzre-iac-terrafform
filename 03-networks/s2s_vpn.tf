@@ -10,6 +10,26 @@ data "azurerm_public_ip" "core" {
   resource_group_name     = azurerm_resource_group.core.name
 }
 
+# data "azurerm_subnet" "core" {
+#   provider                = azurerm.onpremsim
+#   depends_on = [
+#     azurerm_virtual_machine.cisco
+#   ]
+#   name                 = "GatewaySubnet"
+#   virtual_network_name = azurerm_virtual_network.core.name
+#   resource_group_name  = azurerm_resource_group.core.name
+# }
+
+data "azurerm_virtual_network" "core" {
+  provider                = azurerm.onpremsim
+  depends_on = [
+    azurerm_virtual_machine.cisco
+  ]
+  name                = azurerm_virtual_network.core.name
+  resource_group_name = azurerm_resource_group.core.name
+}
+
+
 resource "azurerm_local_network_gateway" "hub" {
   name                = "hublocalgw"
   location            = azurerm_resource_group.hub.location
@@ -30,6 +50,9 @@ resource "azurerm_public_ip" "vpngw" {
 }
 
 resource "azurerm_virtual_network_gateway" "hub" {
+    depends_on = [
+    azurerm_virtual_machine.cisco
+  ]
   name                = "hubvpngw"
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
@@ -45,7 +68,7 @@ resource "azurerm_virtual_network_gateway" "hub" {
     name                          = "vnetGatewayConfig"
     public_ip_address_id          = azurerm_public_ip.vpngw.id
     private_ip_address_allocation = "Dynamic"
-    subnet_id                     = azurerm_virtual_network.core.subnet.*.id[0]
+    subnet_id                     = azurerm_virtual_network.hub.subnet.*.id[0]
   }
 
   bgp_settings {
