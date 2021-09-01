@@ -2,8 +2,11 @@
 
 data "azurerm_public_ip" "core" {
   provider                = azurerm.onpremsim
+  depends_on = [
+    azurerm_virtual_machine.cisco
+  ]
   name = "onpremvpnip"
-  location                = azurerm_resource_group.core.location
+  #location                = azurerm_resource_group.core.location
   resource_group_name     = azurerm_resource_group.core.name
 }
 
