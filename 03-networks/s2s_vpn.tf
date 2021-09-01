@@ -5,7 +5,7 @@ data "azurerm_public_ip" "core" {
   depends_on = [
     azurerm_virtual_machine.cisco
   ]
-  name = "onpremvpnip"
+  name = "cisco-pubip"
   #location                = azurerm_resource_group.core.location
   resource_group_name     = azurerm_resource_group.core.name
 }
