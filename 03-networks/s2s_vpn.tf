@@ -1,11 +1,17 @@
 # VPN Gateway and S2S configuration to onprem Csico CSR1000
 
+data "azurerm_public_ip" "core" {
+  provider                = azurerm.onpremsim
+  location                = azurerm_resource_group.core.location
+  resource_group_name     = azurerm_resource_group.core.name
+}
+
 resource "azurerm_local_network_gateway" "hub" {
   name                = "hublocalgw"
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
-  gateway_address     = azurerm_public_ip.cisco.ip_address
-  address_space       = azurerm_virtual_network.core.address_space
+  gateway_address     = data.azurerm_public_ip.core.ip_address
+  address_space       = ["172.20.0.0/16"] # azurerm_virtual_network.core.address_space
   bgp_settings {
     asn = 65010
     bgp_peering_address = azurerm_network_interface.cisco_nic.private_ip_address
