@@ -40,6 +40,7 @@ resource "azurerm_local_network_gateway" "hub" {
     asn = 65010
     bgp_peering_address = azurerm_network_interface.cisco_nic.private_ip_address
   }
+  tags = var.tags
 }
 
 resource "azurerm_public_ip" "vpngw" {
@@ -47,6 +48,7 @@ resource "azurerm_public_ip" "vpngw" {
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
   allocation_method   = "Dynamic"
+  tags = var.tags
 }
 
 resource "azurerm_virtual_network_gateway" "hub" {
@@ -91,5 +93,9 @@ resource "azurerm_virtual_network_gateway_connection" "hub" {
   virtual_network_gateway_id = azurerm_virtual_network_gateway.hub.id
   local_network_gateway_id   = azurerm_local_network_gateway.hub.id
 
+  enable_bgp = true
+
   shared_key = "Cisco_123"
+
+  tags = var.tags
 }
