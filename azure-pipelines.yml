@@ -57,7 +57,22 @@ stages:
             commandOptions: '-out=tfplan'
             workingDirectory: '$(terraform_templates_dir)'
             environmentServiceNameAzureRM: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
+        - task: TerraformTaskV2@2
+          inputs:
+            provider: 'azurerm'
+            command: 'show'
+            commandOptions: '-json tfplan > tfplan.json'
+            workingDirectory: '$(terraform_templates_dir)'
+            environmentServiceNameAzureRM: 'Visual Studio Enterprise – MPN(07209e8b-f025-434a-98ee-5e5430ed50b1)'
+        - publish: tfplan.json
+          artifact: tfplanfile
 
+        # - task: PublishBuildArtifacts@1
+        #   inputs:
+        #     pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        #     artifactName: drop1
+        # steps:
+  
   - stage: deploy_approval
     jobs:
       - job: waitForValidation
