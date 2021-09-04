@@ -78,7 +78,7 @@ stages:
               date 
               terraform show -json tfplan > tfplan.json
             workingDirectory: '$(terraform_templates_dir)'
-        - publish: tfplan.json
+        - publish: '$(terraform_templates_dir)/tfplan.json'
           artifact: tfplanfile
     
   - stage: deploy_approval
