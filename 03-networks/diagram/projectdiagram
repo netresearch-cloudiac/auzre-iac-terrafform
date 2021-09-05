@@ -1,0 +1,39 @@
+digraph IaaS {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=20 label=IaaS nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	subgraph cluster_RG {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label=RG labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"5df5c2e74d56421082df982118e0f8ed" [label="RG-APP01" height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/general\resourcegroups.png" shape=none]
+		"78b49590afde4a839590afc605f04c6b" [label=LB_APP01 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/network\load-balancers.png" shape=none]
+		subgraph "cluster_Web Cluster" {
+			graph [bgcolor="#EBF3E7" fontname="Sans-Serif" fontsize=12 label="Web Cluster" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+			"89566797a9a449eb8942fcd77d666678" [label=web01 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/compute\vm.png" shape=none]
+			f05efbcf2e63491b8f2444fa362257a3 [label=web02 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/compute\vm-windows.png" shape=none]
+			"44e375596cb048b1add9599b0a6bd400" [label=web03 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/compute\vm-linux.png" shape=none]
+		}
+		subgraph "cluster_DB Cluster" {
+			graph [bgcolor="#EBF3E7" fontname="Sans-Serif" fontsize=12 label="DB Cluster" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+			"39c240693d7a4642b5ad5f946577a05d" [label=db01 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/compute\vm.png" shape=none]
+			d95571952a86405297f99cdc0a19f824 [label=db02 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/compute\vm.png" shape=none]
+		}
+	}
+	subgraph cluster_FW {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label=FW labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"658604277423461592924ce5961b73db" [label="RG-Hub" height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/general\resourcegroups.png" shape=none]
+		"457375188aab4423a3257dd5266818a1" [label=AzFW01 height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/network\firewall.png" shape=none]
+	}
+	"457375188aab4423a3257dd5266818a1" -> "78b49590afde4a839590afc605f04c6b" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"78b49590afde4a839590afc605f04c6b" -> "89566797a9a449eb8942fcd77d666678" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"78b49590afde4a839590afc605f04c6b" -> f05efbcf2e63491b8f2444fa362257a3 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"78b49590afde4a839590afc605f04c6b" -> "44e375596cb048b1add9599b0a6bd400" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"8774713ac4d74d229abd6113d2a97341" [label="Web Backup" height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/storage\blob-storage.png" shape=none]
+	"89566797a9a449eb8942fcd77d666678" -> "8774713ac4d74d229abd6113d2a97341" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	f05efbcf2e63491b8f2444fa362257a3 -> "8774713ac4d74d229abd6113d2a97341" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"44e375596cb048b1add9599b0a6bd400" -> "8774713ac4d74d229abd6113d2a97341" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"78b49590afde4a839590afc605f04c6b" -> "39c240693d7a4642b5ad5f946577a05d" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"78b49590afde4a839590afc605f04c6b" -> d95571952a86405297f99cdc0a19f824 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	cc38a1bfb37f4ec3af567e504a036343 [label="Db Backup" height=1.9 image="C:\Users\dheep.balaraman\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\resources/azure/storage\blob-storage.png" shape=none]
+	"39c240693d7a4642b5ad5f946577a05d" -> cc38a1bfb37f4ec3af567e504a036343 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	d95571952a86405297f99cdc0a19f824 -> cc38a1bfb37f4ec3af567e504a036343 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
