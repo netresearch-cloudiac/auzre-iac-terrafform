@@ -21,6 +21,7 @@ resource "azurerm_public_ip" "cisco" {
   resource_group_name     = azurerm_resource_group.core.name
   allocation_method       = "Dynamic"
   idle_timeout_in_minutes = 30
+  domain_name_label = "${var.prefix}-csr1konprem"
   tags                    = var.tags
 }
 
