@@ -91,6 +91,6 @@ resource "azurerm_virtual_network_peering" "spoke" {
   allow_forwarded_traffic      = true
 
   # `allow_gateway_transit` must be set to false for vnet Global Peering
-  allow_gateway_transit = true
+  allow_gateway_transit = false
   use_remote_gateways = true
 }
