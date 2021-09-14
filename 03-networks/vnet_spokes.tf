@@ -81,3 +81,16 @@ resource "azurerm_virtual_network" "spoke" {
 
   tags = var.tags
 }
+
+resource "azurerm_virtual_network_peering" "spoke" {
+  name                      = "spokevnet1tohub"
+  resource_group_name       = azurerm_resource_group.spoke["1"].name
+  virtual_network_name      = azurerm_virtual_network.spoke["1"].name
+  remote_virtual_network_id = azurerm_virtual_network.hub.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+
+  # `allow_gateway_transit` must be set to false for vnet Global Peering
+  allow_gateway_transit = true
+  use_remote_gateways = true
+}
