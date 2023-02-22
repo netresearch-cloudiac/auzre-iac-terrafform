@@ -39,7 +39,13 @@ ARM_CLIENT_SECRET
 ARM_SUBSCRIPTION_ID
 ARM_TENANT_ID
 ```
+## Azure cli commads
+```shell
 
+# List VM sizes in a region
+az vm list-sizes --location "east us" --output table
+
+```
 # References
 ## Github actions
 - Terraform Github actions offical repo - https://github.com/hashicorp/setup-terraform
