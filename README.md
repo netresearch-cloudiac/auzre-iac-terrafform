@@ -80,7 +80,14 @@ az vm list-sizes --location "east us" --output table
 
 ## Automation and provision
 - Cloud-Init With Terraform - https://www.phillipsj.net/posts/cloud-init-with-terraform/
-
+- how to see cloud-init logs
+``` shell
+cat /var/log/cloud-init-output.log
+```
+- how to run ansible
+``` shell
+ansible-playbook vmplaybook.yaml
+```
 ## Azure Networking VNET links
 - How network security groups filter network traffic - https://docs.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
 ### Public IP address

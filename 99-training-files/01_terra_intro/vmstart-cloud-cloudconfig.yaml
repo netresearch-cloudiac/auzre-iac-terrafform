@@ -1,0 +1,15 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - htop
+  - git
+  - net-tools
+  - ansible
+runcmd:
+  - wget -q -O- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
+  - add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
+  - sudo apt-get update -y
+  - sudo apt-get install -y  webmin
+  - sudo ufw allow 10000
+  - echo "done startup" > /home/azureuser/temp.txt

@@ -50,6 +50,10 @@ resource "azurerm_linux_virtual_machine" "linux-vm" {
         version = "latest"
     }
 
+
+    # cloud init configuration
+    custom_data = data.cloudinit_config.linux-vm.rendered
+
 }
 
 resource "azurerm_network_interface_security_group_association" "linux-vm" {
