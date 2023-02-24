@@ -78,6 +78,9 @@ az vm list-sizes --location "east us" --output table
 - Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
 
+## Automation and provision
+- Cloud-Init With Terraform - https://www.phillipsj.net/posts/cloud-init-with-terraform/
+
 ## Azure Networking VNET links
 - How network security groups filter network traffic - https://docs.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
 ### Public IP address
