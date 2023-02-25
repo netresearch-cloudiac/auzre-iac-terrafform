@@ -12,4 +12,9 @@ runcmd:
   - sudo apt-get update -y
   - sudo apt-get install -y  webmin
   - sudo ufw allow 10000
-  - echo "done startup" > /home/azureuser/temp.txt
+  - pwd
+  - echo "done startup" > temp.txt
+  - date >> temp.txt
+  - git clone https://github.com/netresearch-cloudiac/ansibleplaybooks.git
+  - sudo ansible-playbook ansibleplaybooks/vm-linux-config.yaml
+  - date >> temp.txt

@@ -45,6 +45,9 @@ ARM_TENANT_ID
 # List VM sizes in a region
 az vm list-sizes --location "east us" --output table
 
+# List VM images from a particular publisher
+az vm image list --all --publisher Canonical -o table
+
 ```
 # References
 ## Github actions
