@@ -1,6 +1,12 @@
 # Azure Infrastructure as Code using Terraform
 This repository coonsists for the Azure Terrafrom template for standard infrastructure patterns
 
+## Clone local copy
+- The repository uses submodules for ansible playbooks so use below git cloning command to clone all the dependent modules
+```shell
+git clone --recurse-submodules https://github.com/netresearch-cloudiac/azure-iac-terraform.git
+```
+
 ## Repository branch structure
 - main    --> production branch (protected)
 - develop --> development branch where developer branches are merged for staging and testing
@@ -25,6 +31,7 @@ This repository coonsists for the Azure Terrafrom template for standard infrastr
 | common-mgt | common services for management of the Azure cloud | Storage - Terraform remote state, KeyVault | Inprogress|
 | vnet-structre | vnet for the azure environment | VNETs, peerings | Not started|
 |[Tier4app](/04-slb2srv1reg) | One Loadbalancer with two web servers | one azure standard load balancer with two windows servers | In Progress|
+|[VM & Network provisiioning](/99-training-files/) | VNET and Server provistioning with Terrafrom and configuration with cloud-init and Ansible | VNET, Two servers, startup config by cloud-init, Configration managememt by Ansible | Done|
 
 ## Terraform Setup
 
@@ -39,6 +46,19 @@ ARM_CLIENT_SECRET
 ARM_SUBSCRIPTION_ID
 ARM_TENANT_ID
 ```
+
+## Terraform commands
+```shell
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+
+# destrcoy specific resrouce 
+terraform destroy --target azurerm_linux_virtual_machine.linux-vm2
+
+```
+
 ## Azure cli commads
 ```shell
 
