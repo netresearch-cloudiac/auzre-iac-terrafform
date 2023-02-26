@@ -1,12 +1,6 @@
 # Azure Infrastructure as Code using Terraform
 This repository coonsists for the Azure Terrafrom template for standard infrastructure patterns
 
-## Clone local copy
-- The repository uses submodules for ansible playbooks so use below git cloning command to clone all the dependent modules
-```shell
-git clone --recurse-submodules https://github.com/netresearch-cloudiac/azure-iac-terraform.git
-```
-
 ## Repository branch structure
 - main    --> production branch (protected)
 - develop --> development branch where developer branches are merged for staging and testing
@@ -23,6 +17,12 @@ git clone --recurse-submodules https://github.com/netresearch-cloudiac/azure-iac
     - git extension pack
     - Terraform azure autocomplete
     - Azure cli tools
+
+## Clone local copy
+- The repository uses submodules for ansible playbooks so use below git cloning command to clone all the dependent modules
+```shell
+git clone --recurse-submodules https://github.com/netresearch-cloudiac/azure-iac-terraform.git
+```
 
 ## Templates
 
