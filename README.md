@@ -100,6 +100,7 @@ az vm image list --all --publisher Canonical -o table
 - Azure Terrafrom configuration templates - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples
 - Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
+- Muntiple subscriptions - https://jeffbrown.tech/terraform-azure-multiple-subscriptions/
 
 ## Automation and provision
 - Cloud-Init With Terraform - https://www.phillipsj.net/posts/cloud-init-with-terraform/
