@@ -68,8 +68,83 @@ az vm list-sizes --location "east us" --output table
 # List VM images from a particular publisher
 az vm image list --all --publisher Canonical -o table
 
+# List VM extenstion filter to AADlogin
+az vm extension image list -o tsv | sort -u | findstr AADLoginForWindows
+
 ```
 # References
+## Ubuntu skus
+Ubuntu skus for use with terraform script
+
+```shell
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "UbuntuServer"
+        sku = "18.04-LTS"
+        version = "latest"
+    }
+    
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "0001-com-ubuntu-server-focal"
+        sku = "20_04-lts"   
+        version = "latest"
+    }
+
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "0001-com-ubuntu-server-jammy"
+        sku = "22_04-lts"   
+        version = "latest"
+    }
+```
+
+## Enable AAD login for VMs
+- SSH auth with AAD - https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/auth-ssh
+- Linux VM with AAD - https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-linux
+- Windows vm with AAD - https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-windows
+
+Prerequisties
+- Add one of the roles below to user
+    - Virtual Machine Administrator Login: Users who have this role assigned can log in to an Azure virtual machine with administrator privileges.
+    - Virtual Machine User Login: Users who have this role assigned can log in to an Azure virtual machine with regular user privileges.
+
+- enable 'SystemAssigned" managed identity
+
+```shell
+identity {
+        type = "SystemAssigned"
+    }
+```
+- add extensions
+
+```shell
+# Windows VM AAD extension
+resource "azurerm_virtual_machine_extension" "windows-vm-aad" {
+    name = "aad-extension"
+    virtual_machine_id = azurerm_windows_virtual_machine.windows-vm.id
+    publisher = "Microsoft.Azure.ActiveDirectory"
+    type = "AADLoginForWindows"
+    type_handler_version = "1.0"
+    auto_upgrade_minor_version = true
+}
+
+# Linux VM AAD extension
+resource "azurerm_virtual_machine_extension" "linux-vm-aad" {
+    name = "aad-extension"
+    virtual_machine_id = azurerm_linux_virtual_machine.linux-vm.id
+    publisher = "Microsoft.Azure.ActiveDirectory"
+    type = "AADSSHLoginForLinux"
+    type_handler_version = "1.0"
+    auto_upgrade_minor_version = true
+}
+```
+- use below command to connect
+```shell
+az ssh vm --ip dblinuxvm01.eastus.cloudapp.azure.com
+```
+
+
 ## Github actions
 - Terraform Github actions offical repo - https://github.com/hashicorp/setup-terraform
 - Terraform GitHub Actions Examples - https://github.com/xsalazar/terraform-github-actions-example
