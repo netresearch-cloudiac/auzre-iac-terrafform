@@ -195,3 +195,6 @@ ansible-playbook vmplaybook.yaml
 
 ## Load Balancer
 - Loadbalancer-2VM - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/virtual-machines/virtual_machine/2-vms-loadbalancer-lbrules
+
+## Azure SQL with Azure AD
+- Managed identity to access Azure SQL - https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-windows-vm-access-sql
