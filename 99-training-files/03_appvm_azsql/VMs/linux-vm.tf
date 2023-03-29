@@ -1,8 +1,8 @@
 
 resource "azurerm_public_ip" "linux-vm" {
     name = "linux-vm-pubip"
-    resource_group_name = azurerm_resource_group.rg_base.name
-    location = azurerm_resource_group.rg_base.location
+    resource_group_name = var.rg_name
+    location = var.pry_location
     domain_name_label = "dblinuxvm01"
     allocation_method = "Static"
     sku = "Standard"
@@ -13,12 +13,13 @@ resource "azurerm_public_ip" "linux-vm" {
 
 resource "azurerm_network_interface" "linux-vm" {
     name = "linux-vm-nic"
-    resource_group_name = azurerm_resource_group.rg_base.name
-    location = azurerm_resource_group.rg_base.location
+    resource_group_name = var.rg_name
+    location = var.pry_location
     
     ip_configuration {
         name = "linux-vm-ip"
-        subnet_id = azurerm_subnet.app-subnet.id
+        //subnet_id = azurerm_subnet.app-subnet.id
+        subnet_id = data.azurerm_subnet.app-subnet.id
         // subnet_id = azurerm_virtual_network.vnet_base.subnet.*.id[1]
         private_ip_address_allocation = "Dynamic"
         public_ip_address_id = azurerm_public_ip.linux-vm.id
@@ -27,8 +28,8 @@ resource "azurerm_network_interface" "linux-vm" {
 
 resource "azurerm_linux_virtual_machine" "linux-vm" {
     name = "linux-vm"
-    resource_group_name = azurerm_resource_group.rg_base.name
-    location = azurerm_resource_group.rg_base.location
+    resource_group_name = var.rg_name
+    location = var.pry_location
     size = "Standard_DS1_v2"
     admin_username = "azureuser"
     disable_password_authentication = false
@@ -72,8 +73,8 @@ resource "azurerm_linux_virtual_machine" "linux-vm" {
 
 resource "azurerm_virtual_machine_extension" "linux-vm-aad" {
     name = "aad-extension"
-    # location = azurerm_resource_group.rg_base.location
-    # resource_group_name = azurerm_resource_group.rg_base.name
+    # location = var.pry_location
+    # resource_group_name = var.rg_name
     virtual_machine_id = azurerm_linux_virtual_machine.linux-vm.id
     # publisher = "Microsoft.Azure.ActiveDirectory.LinuxSSH"
     # type = "AADLoginForLinux"

@@ -1,8 +1,8 @@
 
 resource "azurerm_public_ip" "windows-vm" {
     name = "windows-vm-pubip"
-    resource_group_name = azurerm_resource_group.rg_base.name
-    location = azurerm_resource_group.rg_base.location
+    resource_group_name = var.rg_name
+    location = var.pry_location
     domain_name_label = "dbwin825vm01"
     allocation_method = "Static"
     sku = "Standard"
@@ -14,12 +14,13 @@ resource "azurerm_public_ip" "windows-vm" {
 
 resource "azurerm_network_interface" "windows-vm" {
     name = "windows-vm-nic"
-    resource_group_name = azurerm_resource_group.rg_base.name
-    location = azurerm_resource_group.rg_base.location
+    resource_group_name = var.rg_name
+    location = var.pry_location
     
     ip_configuration {
         name = "windows-vm-ip"
-        subnet_id = azurerm_subnet.web-subnet.id
+        //subnet_id = azurerm_subnet.web-subnet.id
+        subnet_id = data.azurerm_subnet.web-subnet.id
         // subnet_id = azurerm_virtual_network.vnet_base.subnet.*.id[1]
         private_ip_address_allocation = "Dynamic"
         public_ip_address_id = azurerm_public_ip.windows-vm.id
@@ -28,8 +29,8 @@ resource "azurerm_network_interface" "windows-vm" {
 
 resource "azurerm_windows_virtual_machine" "windows-vm" {
     name = "windows-vm"
-    resource_group_name = azurerm_resource_group.rg_base.name
-    location = azurerm_resource_group.rg_base.location
+    resource_group_name = var.rg_name
+    location = var.pry_location
     size = "Standard_DS1_v2"
     admin_username = "azureuser"
     admin_password = "Pa$$w0rd1234!"
@@ -60,18 +61,18 @@ resource "azurerm_windows_virtual_machine" "windows-vm" {
 
 }
 
-# resource "azurerm_virtual_machine_extension" "windows-vm" {
-#   name                 = "iis-extension"
-#   virtual_machine_id   = azurerm_windows_virtual_machine.windows-vm.id
-#   publisher            = "Microsoft.Compute"
-#   type                 = "CustomScriptExtension"
-#   type_handler_version = "1.10"
-#   settings             = <<SETTINGS
-#     {
-#         "commandToExecute": "powershell Install-WindowsFeature -name Web-Server -IncludeManagementTools;"
-#     }
-# SETTINGS
-# }
+resource "azurerm_virtual_machine_extension" "windows-vm-iis" {
+  name                 = "iis-extension"
+  virtual_machine_id   = azurerm_windows_virtual_machine.windows-vm.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.10"
+  settings             = <<SETTINGS
+    {
+        "commandToExecute": "powershell Install-WindowsFeature -name Web-Server -IncludeManagementTools;"
+    }
+SETTINGS
+}
 
 resource "azurerm_virtual_machine_extension" "windows-vm-aad" {
     name = "aad-extension"

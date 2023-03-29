@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "linux-vm" {
   name                = "acceptanceTestSecurityGroup1"
-  location            = azurerm_resource_group.rg_base.location
-  resource_group_name = azurerm_resource_group.rg_base.name
+  location            = var.pry_location
+  resource_group_name = var.rg_name
 
   security_rule {
     name                       = "test123"
@@ -20,8 +20,8 @@ resource "azurerm_network_security_group" "linux-vm" {
 
 resource "azurerm_network_security_group" "windows-vm" {
   name                = "acceptanceTestSecurityGroup2"
-  location            = azurerm_resource_group.rg_base.location
-  resource_group_name = azurerm_resource_group.rg_base.name
+  location            = var.pry_location
+  resource_group_name = var.rg_name
 
   security_rule {
     name                       = "test123"
