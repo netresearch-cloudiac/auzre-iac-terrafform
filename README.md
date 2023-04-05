@@ -103,6 +103,12 @@ Ubuntu skus for use with terraform script
 - SSH auth with AAD - https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/auth-ssh
 - Linux VM with AAD - https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-linux
 - Windows vm with AAD - https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-windows
+    - To enable Azure AD authentication for your Windows VMs in Azure, you need to ensure that your VM's network configuration permits outbound access to the following endpoints over TCP port 443.
+    - Azure Global:
+        - https://enterpriseregistration.windows.net: For device registration.
+        - http://169.254.169.254: Azure Instance Metadata Service endpoint.
+        - https://login.microsoftonline.com: For authentication flows.
+        - https://pas.windows.net: For Azure RBAC flows.
 
 Prerequisties
 - Add one of the roles below to user
@@ -176,6 +182,7 @@ az ssh vm --ip dblinuxvm01.eastus.cloudapp.azure.com
 - Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
 - Muntiple subscriptions - https://jeffbrown.tech/terraform-azure-multiple-subscriptions/
+- Terraform quick start templates - https://github.com/Azure/terraform/tree/master/quickstart
 
 ## Automation and provision
 - Cloud-Init With Terraform - https://www.phillipsj.net/posts/cloud-init-with-terraform/
