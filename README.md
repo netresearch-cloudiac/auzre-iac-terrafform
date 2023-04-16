@@ -68,8 +68,89 @@ az vm list-sizes --location "east us" --output table
 # List VM images from a particular publisher
 az vm image list --all --publisher Canonical -o table
 
+# List VM extenstion filter to AADlogin
+az vm extension image list -o tsv | sort -u | findstr AADLoginForWindows
+
 ```
 # References
+## Ubuntu skus
+Ubuntu skus for use with terraform script
+
+```shell
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "UbuntuServer"
+        sku = "18.04-LTS"
+        version = "latest"
+    }
+    
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "0001-com-ubuntu-server-focal"
+        sku = "20_04-lts"   
+        version = "latest"
+    }
+
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "0001-com-ubuntu-server-jammy"
+        sku = "22_04-lts"   
+        version = "latest"
+    }
+```
+
+## Enable AAD login for VMs
+- SSH auth with AAD - https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/auth-ssh
+- Linux VM with AAD - https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-linux
+- Windows vm with AAD - https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-windows
+    - To enable Azure AD authentication for your Windows VMs in Azure, you need to ensure that your VM's network configuration permits outbound access to the following endpoints over TCP port 443.
+    - Azure Global:
+        - https://enterpriseregistration.windows.net: For device registration.
+        - http://169.254.169.254: Azure Instance Metadata Service endpoint.
+        - https://login.microsoftonline.com: For authentication flows.
+        - https://pas.windows.net: For Azure RBAC flows.
+
+Prerequisties
+- Add one of the roles below to user
+    - Virtual Machine Administrator Login: Users who have this role assigned can log in to an Azure virtual machine with administrator privileges.
+    - Virtual Machine User Login: Users who have this role assigned can log in to an Azure virtual machine with regular user privileges.
+
+- enable 'SystemAssigned" managed identity
+
+```shell
+identity {
+        type = "SystemAssigned"
+    }
+```
+- add extensions
+
+```shell
+# Windows VM AAD extension
+resource "azurerm_virtual_machine_extension" "windows-vm-aad" {
+    name = "aad-extension"
+    virtual_machine_id = azurerm_windows_virtual_machine.windows-vm.id
+    publisher = "Microsoft.Azure.ActiveDirectory"
+    type = "AADLoginForWindows"
+    type_handler_version = "1.0"
+    auto_upgrade_minor_version = true
+}
+
+# Linux VM AAD extension
+resource "azurerm_virtual_machine_extension" "linux-vm-aad" {
+    name = "aad-extension"
+    virtual_machine_id = azurerm_linux_virtual_machine.linux-vm.id
+    publisher = "Microsoft.Azure.ActiveDirectory"
+    type = "AADSSHLoginForLinux"
+    type_handler_version = "1.0"
+    auto_upgrade_minor_version = true
+}
+```
+- use below command to connect
+```shell
+az ssh vm --ip dblinuxvm01.eastus.cloudapp.azure.com
+```
+
+
 ## Github actions
 - Terraform Github actions offical repo - https://github.com/hashicorp/setup-terraform
 - Terraform GitHub Actions Examples - https://github.com/xsalazar/terraform-github-actions-example
@@ -100,6 +181,8 @@ az vm image list --all --publisher Canonical -o table
 - Azure Terrafrom configuration templates - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples
 - Create an Azure VM cluster with loadbalancer with Terraform and HCL - https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-cluster-with-infrastructure
 - example terraform outputs - https://github.com/Azure/terraform-azurerm-compute/blob/master/outputs.tf
+- Muntiple subscriptions - https://jeffbrown.tech/terraform-azure-multiple-subscriptions/
+- Terraform quick start templates - https://github.com/Azure/terraform/tree/master/quickstart
 
 ## Automation and provision
 - Cloud-Init With Terraform - https://www.phillipsj.net/posts/cloud-init-with-terraform/
@@ -119,3 +202,6 @@ ansible-playbook vmplaybook.yaml
 
 ## Load Balancer
 - Loadbalancer-2VM - https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/virtual-machines/virtual_machine/2-vms-loadbalancer-lbrules
+
+## Azure SQL with Azure AD
+- Managed identity to access Azure SQL - https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-windows-vm-access-sql
