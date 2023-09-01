@@ -15,6 +15,7 @@ resource "azurerm_network_interface" "linux-vm" {
     name = "linux-vm-nic"
     resource_group_name = var.rg_name
     location = var.pry_location
+    enable_ip_forwarding = true
     
     ip_configuration {
         name = "linux-vm-ip"
